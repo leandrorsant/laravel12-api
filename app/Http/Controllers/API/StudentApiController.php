@@ -45,6 +45,11 @@ class StudentApiController extends Controller
 
         //Store data into the database table
         Student::create($data);
+
+        return response()->json([
+            "status" => "success",
+            "message" => "Student created successfully"
+        ], 201);
     }
 
     /**
