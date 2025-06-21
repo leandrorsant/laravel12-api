@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class StudentApiController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $students = Student::get();
+
+        return response()->json([
+            "status" => "success",
+            "data" => $students
+        ], 200);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //Validade
+        $validator = Validator::make($request->all(),[
+            "name" => "required|min:4",
+            "email" => "required|unique:students,email",
+            "gender" => "required|in:male,female,other"
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "status" => "error",
+                "message" => $validator->errors()
+            ],400);
+        }
+
+        $data = $request->all();
+
+        //Store data into the database table
+        Student::create($data);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}
