@@ -57,7 +57,22 @@ class StudentApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::find($id);
+        
+        //Check if student exists
+        if(!$student){
+            return response()->json([
+                "status" => "error",
+                "message" => "student not found"
+            ], 404);
+        }
+
+
+        return response()->json([
+            "status" => "success",
+            "data" => $student
+        ], 200);
+
     }
 
     /**
@@ -65,7 +80,38 @@ class StudentApiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = Student::find($id);
+        
+        //Check if student exists in the database
+        if(!$student){
+            return response()->json([
+                "status" => "error",
+                "message" => "student not found, cannot update"
+            ], 404);
+        }
+
+        //Validade
+        $validator = Validator::make($request->all(),[
+            "name" => "required|min:4",
+            "email" => "required|min:4|unique:students,email,".$id,
+            "gender" => "required|in:male,female,other"
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "status" => "error",
+                "message" => $validator->errors()
+            ],400);
+        }
+
+        
+
+        $student->update($request->all());
+
+        return response()->json([
+            "status" => "sucess",
+            "message" => $request->all()
+        ], 200);
     }
 
     /**
@@ -73,6 +119,21 @@ class StudentApiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::find($id);
+
+        if(!$student){
+            return response()->json([
+                "status" => "error",
+                "message" => "Cannot delete student because the provided id doesn't match any records"
+            ]);
+        }
+
+        Student::destroy($id);
+
+        return response()->json([
+                "status" => "success",
+                "message" => "Student deleted successfully"
+        ]);
+
     }
 }
