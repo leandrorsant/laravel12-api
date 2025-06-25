@@ -1,0 +1,12 @@
+### Login
+POST http://127.0.0.1:8000/api/login
+Content-Type: application/json
+
+{
+    "email": "test@test.com",
+    "password": "12345678"
+}
+
+### Get Profile
+GET http://127.0.0.1:8000/api/profile
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34  
