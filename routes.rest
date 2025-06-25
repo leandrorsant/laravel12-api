@@ -10,3 +10,203 @@ Content-Type: application/json
 ### Get Profile
 GET http://127.0.0.1:8000/api/profile
 Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34  
+
+### Get Blog Categories
+GET http://127.0.0.1:8000/api/categories
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34 
+Accept: application/json
+
+### Get Blog Category by ID
+GET http://127.0.0.1:8000/api/categories/1
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34 
+Accept: application/json
+
+### Create Blog Category
+POST http://127.0.0.1:8000/api/categories
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34 
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "New Category"
+}
+
+### Update Blog Category
+PATCH http://127.0.0.1:8000/api/categories/2
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34 
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "New Categorys 23",
+    "slug": "new-category"
+}
+
+### Delete Blog Category
+DELETE http://127.0.0.1:8000/api/categories/1
+Authorization: Bearer zOEgwkkIncHBtFcCtze2uaMO9lMlPpGfZgMqVMS3f5c42e34 
+Accept: application/json
+
+### Admin Login
+### "token": "4|zmm0mRwpA5K4ps3zK5cfp4gliX8gEMfEEBkqvZpf830f5a7c"
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "admin@test.com",
+    "password": "12345678"
+}
+
+### Admin Role Access Test
+PATCH http://127.0.0.1:8000/api/categories/2
+Authorization: Bearer 4|zmm0mRwpA5K4ps3zK5cfp4gliX8gEMfEEBkqvZpf830f5a7c
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Updated Category",
+    "slug": "updated-category"
+}
+
+### GET POSTS
+GET http://127.0.0.1:8000/api/posts
+Accept: application/json
+Content-Type: application/json
+
+### Author Login
+### "token": 8|Q7oJKmHBtmZQ5IN7t2sZlK8gOdepxvqMPGqlxnMS5f3b941d
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "author@test.com",
+    "password": "12345678"
+}
+
+### Admin Role Access Test
+PATCH http://127.0.0.1:8000/api/categories/2
+Authorization: Bearer 5|TYQY3ZM3dvNTa5xzwaCXiaGZ8NCotmDf0R9qHpvT2b788b23
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "Updated Category",
+    "slug": "updated-category"
+}
+
+### Reader Login
+### "token": 10|OiT9jkXOy7UN2ebMJ1JK8n1uk6o2sTgOC4mhfQ5X6585f777
+POST http://127.0.0.1:8000/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "reader@test.com",
+    "password": "12345678"
+}
+
+### Reader Role Access Test
+GET http://127.0.0.1:8000/api/categories/2
+Authorization: Bearer 9|kfSxL6DRPDFcvP298vUYsp20CIUHMQKLSbQyadjXc15fe517
+Accept: application/json
+
+
+
+### React Blog Post
+POST http://127.0.0.1:8000/api/post/react
+Authorization: Bearer 9|kfSxL6DRPDFcvP298vUYsp20CIUHMQKLSbQyadjXc15fe517
+Accept: application/json
+Content-Type: application/json
+
+{
+    "post_id": 3,
+    "status": 2
+}
+
+
+### Post Reaction Count
+GET http://127.0.0.1:8000/api/posts/reactions/3
+
+
+
+### Author create post
+POST http://127.0.0.1:8000/api/posts
+Authorization: Bearer 9|kfSxL6DRPDFcvP298vUYsp20CIUHMQKLSbQyadjXc15fe517
+Accept: application/json
+Content-Type: multipart/form-data; boundary=MyBoundary123
+
+--MyBoundary123
+Content-Disposition: form-data; name="user_id"
+
+4
+--MyBoundary123
+Content-Disposition: form-data; name="category_id"
+
+2
+--MyBoundary123
+Content-Disposition: form-data; name="title"
+
+Dummy Post
+--MyBoundary123
+Content-Disposition: form-data; name="content"
+
+This is some amazing dummy post content.
+--MyBoundary123
+Content-Disposition: form-data; name="meta_title"
+
+Dummy Meta Title
+--MyBoundary123
+Content-Disposition: form-data; name="meta_description"
+
+This is a dummy meta description.
+--MyBoundary123
+Content-Disposition: form-data; name="meta_keywords"
+
+dummy, post, example
+--MyBoundary123
+Content-Disposition: form-data; name="thumbnail"; filename="dummy_image.png"
+Content-Type: image/png
+
+< C:\Users\ramos\Downloads\dummy_image.png
+--MyBoundary123--
+
+
+
+
+### Add Comment (Reader)
+POST http://127.0.0.1:8000/api/comments
+Authorization: Bearer 10|OiT9jkXOy7UN2ebMJ1JK8n1uk6o2sTgOC4mhfQ5X6585f777
+Accept: application/json
+Content-Type: application/json
+
+{
+    "post_id": 3,
+    "content": "This is a comment on the post."
+}
+
+
+### Get All Comments
+GET http://127.0.0.1:8000/api/comments
+Authorization: Bearer 10|OiT9jkXOy7UN2ebMJ1JK8n1uk6o2sTgOC4mhfQ5X6585f777
+Accept: application/json
+Content-Type: application/json
+
+
+
+### Change comment status
+PATCH http://127.0.0.1:8000/api/comments/change-status/1
+Authorization: Bearer 4|zmm0mRwpA5K4ps3zK5cfp4gliX8gEMfEEBkqvZpf830f5a7c
+Accept: application/json
+Content-Type: application/json
+
+{
+    "status": "approved"
+}
+
+
+### Get Post Comments
+GET http://127.0.0.1:8000/api/posts/3/comments
+Authorization: Bearer 10|OiT9jkXOy7UN2ebMJ1JK8n1uk6o2sTgOC4mhfQ5X6585f777
+Accept: application/json
